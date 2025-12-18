@@ -1,0 +1,19 @@
+[project]
+name = "agents-exp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "faiss-cpu>=1.13.1",
+    "ipykernel>=7.1.0",
+    "langchain-core>=1.2.2",
+    "langchain-openai>=1.1.5",
+    "langgraph>=1.0.5",
+    "numpy>=2.3.5",
+    "pillow>=12.0.0",
+    "pymilvus>=2.6.5",
+    "pymupdf>=1.26.7",
+    "python-dotenv>=1.2.1",
+    "sentence-transformers>=5.2.0",
+]
