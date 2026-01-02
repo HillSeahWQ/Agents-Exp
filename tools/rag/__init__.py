@@ -1,6 +1,6 @@
-from .X_rag_tool import search_X_documents, search_X_documents_detailed
+from .company_x_rag_tool import search_company_x_documents, search_company_x_documents_detailed
 
 __all__ = [
-    "search_X_documents",
-    "search_X_documents_detailed"
+    "search_company_x_documents",
+    "search_company_x_documents_detailed"
 ]

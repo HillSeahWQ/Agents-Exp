@@ -55,7 +55,7 @@ NORMALIZE_QUERIES = True  # Should match ingestion normalization
 # RAG TOOL IMPLEMENTATION
 # ============================================================================
 
-class XRAGSearch:
+class CompanyXRAGSearch:
     """
     Singleton class to manage FAISS client and embedder instances.
     Avoids reloading the index and embedder on every tool call.
@@ -162,7 +162,7 @@ class XRAGSearch:
 # ============================================================================
 
 @tool
-def search_X_documents(
+def search_company_x_documents(
     query: str
 ) -> str:
     """
@@ -190,7 +190,7 @@ def search_X_documents(
     
     try:
         # Perform search
-        searcher = XRAGSearch()
+        searcher = CompanyXRAGSearch()
         results = searcher.search(
             query=query,
             top_k=top_k,
@@ -231,11 +231,11 @@ def search_X_documents(
 # ============================================================================
 
 @tool
-def search_X_documents_detailed(
+def search_company_x_documents_detailed(
     query: str
 ) -> List[Dict[str, Any]]:
     """
-    Search X documentation and return structured results.
+    Search Company X documentation and return structured results.
     
     This version returns structured data instead of formatted text,
     useful if the agent needs to process results programmatically.
@@ -255,7 +255,7 @@ def search_X_documents_detailed(
     top_k = max(1, min(DEFAULT_TOP_K, 20))
     
     try:
-        searcher = XRAGSearch()
+        searcher = CompanyXRAGSearch()
         results = searcher.search(query=query, top_k=top_k)
         return results
     

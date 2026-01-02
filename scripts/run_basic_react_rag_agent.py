@@ -28,7 +28,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from agents.basic_react_agent import BasicReactAgent
 from memory_strategies.full_history import FullHistoryMemory
-from tools import RAG_TOOLS
+from tools.rag.company_x_rag_tool import search_company_x_documents, search_company_x_documents_detailed
 from utils.logging.logger import get_logger
 from utils.running_agent.interactive import run_interactive_chat, run_example_queries
 from utils.running_agent.pretty_print import pretty_print_agent_response
@@ -40,27 +40,27 @@ load_dotenv()
 # CONFIGURATION
 # ============================================================================
 
-SYSTEM_MESSAGE = SystemMessage(content="""You are a helpful AI assistant with access to X's internal documentation.
+SYSTEM_MESSAGE = SystemMessage(content="""You are a helpful AI assistant with access to Company X's internal documentation.
 
 IMPORTANT INSTRUCTIONS:
-1. When users ask about X policies, benefits, procedures, or documentation:
-   - Use the search_X_documents tool to find relevant information
+1. When users ask about Company X policies, benefits, procedures, or documentation:
+   - Use the Company X documents tool to find relevant information
    - Always cite your sources (mention the document name and page number)
    - If information is not found in the documents, clearly state that
 
-2. For general questions that don't require X-specific information:
+2. For general questions that don't require Company X-specific information:
    - Answer directly from your knowledge
-   - Be clear about what is general knowledge vs. X-specific
+   - Be clear about what is general knowledge vs. Company X-specific
 
 3. Best practices:
    - Search with specific, focused queries
    - If the first search doesn't yield good results, try rephrasing
    - Summarize findings clearly and concisely
-   - Always provide source citations for X-specific information
+   - Always provide source citations for Company X-specific information
 
 Example interactions:
-- User: "What does X cover for surgeries?"
-  → Use tool: search_X_documents("X surgery coverage benefits")
+- User: "What does Company X cover for surgeries?"
+  → Use tool: search_company_x_documents("Company X surgery coverage benefits")
   
 - User: "What is Python?"
   → Answer directly without tools (general knowledge)
@@ -71,17 +71,17 @@ LLM_MODEL_NAME = "gpt-4o" # TODO: EDIT desired OpenAI LLM model name
 TEMPERATURE = 0.0 # TODO: EDIT desired LLM's temperature
 MAX_LLM_CALLS_COUNT = 10 # TODO: EDIT desired maximum LLM calls threshold per query
 MEMORY_STRATEGY = FullHistoryMemory() # TODO: EDIT desired memory strategy to trim conversation history
-TOOLS = RAG_TOOLS # TODO: EDIT desired list of tools accessible by agent
+TOOLS = [search_company_x_documents] # TODO: EDIT desired list of tools accessible by agent
 
 # Example queries for testing
 EXAMPLE_QUERIES = [
     {
         "thread_id": "example-1",
-        "query": "How much does X cover for surgeries?"
+        "query": "How much does Company X cover for surgeries?"
     },
     {
         "thread_id": "example-2", 
-        "query": "What are the hospitals covered by X's health insurance?"
+        "query": "What are the hospitals covered by Company X's health insurance?"
     },
     {
         "thread_id": "example-3",
